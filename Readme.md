@@ -6,4 +6,4 @@ To setup the problem, start script
 ./setup_problem.sh
 ```
 
-The containers tf_problem and tf_solution contain the exact same ROS Nodes. However, only the solution container is able to receive the latest tf messages.
+The containers tf_problem and tf_solution contain the exact same ROS Nodes. However, only the solution container is able to receive tf messages.
