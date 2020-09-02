@@ -1,0 +1,21 @@
+# Dockerfile from repo
+FROM ros:kinetic-robot
+
+RUN apt-get update
+
+RUN apt-get install -y \
+    ros-kinetic-tf2 \
+    ros-kinetic-tf \
+    libssl-dev \
+    python-pip
+
+# ros env variables
+RUN /bin/bash -c "mkdir -p /root/catkin_ws/src"
+ENV CATKIN_WS /root/catkin_ws
+
+WORKDIR $CATKIN_WS
+COPY [ "./tf_problem/", "$CATKIN_WS/src/tf_problem/" ]
+
+# RUN pip install  --no-cache-dir -r /root/catkin_ws/src/analyst_robot/requirements.txt --ignore-installed
+RUN /bin/bash -c "source /opt/ros/kinetic/setup.bash \
+    && catkin_make install -DCMAKE_INSTALL_PREFIX=/opt/ros/kinetic/"

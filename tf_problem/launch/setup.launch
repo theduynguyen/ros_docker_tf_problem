@@ -1,0 +1,7 @@
+<launch>
+
+  <node name="tf_broadcaster" pkg="tf_problem" type="tf_broadcaster.py" respawn="true" output="screen" />
+  <node name="output" pkg="tf_problem" type="debug_node.py" respawn="true" output="screen" />
+
+
+</launch>

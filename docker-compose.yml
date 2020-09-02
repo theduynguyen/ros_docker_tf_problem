@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  ros_master:
+    image: ros:kinetic-ros-core
+    environment:
+      - ROS_MASTER_URI=${ROS_MASTER_URI}
+      - ROS_IP=${ROS_IP}
+    network_mode: 'host'
+    command: stdbuf -o L roscore
+
+  tf_problem:
+    image: tf_problem:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.problem
+    environment:
+      - ROS_MASTER_URI=${ROS_MASTER_URI}
+      - ROS_IP=${ROS_IP}
+    network_mode: host
+    command: bash -c ". /root/catkin_ws/devel/setup.bash && roslaunch --wait tf_problem setup.launch"
+
+  tf_solution:
+    image: tf_solution:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.solution
+    environment:
+      - ROS_MASTER_URI=${ROS_MASTER_URI}
+      - ROS_IP=${ROS_IP}
+    network_mode: host
+    command: bash -c ". /root/catkin_ws/devel/setup.bash && roslaunch --wait tf_problem setup.launch"
